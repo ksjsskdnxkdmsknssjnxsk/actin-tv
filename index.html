@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actin TV - المشغل الحقيقي</title>
+    
+    <!-- مكتبة HLS لتشغيل ملفات البث المباشر المقطعة -->
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+
+    <style>
+        body {
+            background-color: #121212;
+            color: white;
+            font-family: sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .player-wrapper {
+            position: relative;
+            width: 95%;
+            max-width: 800px;
+            aspect-ratio: 16 / 9;
+            background: #000;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.7);
+        }
+
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        /* طبقة التغويش واللوغو */
+        .logo-overlay {
+            position: absolute;
+            top: 20px;         
+            left: 20px;        
+            width: 110px;       
+            height: 45px;      
+            background-color: rgba(255, 255, 255, 0.1); 
+            backdrop-filter: blur(12px); 
+            -webkit-backdrop-filter: blur(12px); 
+            border-radius: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;                
+            pointer-events: none;       
+        }
+
+        .logo-overlay img {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+        }
+    </style>
+</head>
+<body>
+
+<div class="player-wrapper">
+    
+    <!-- طبقة التغبيش والشعار -->
+    <div class="logo-overlay">
+        <img src="https://via.placeholder.com/100x40/000000/ffffff?text=Actin+TV" alt="Logo">
+    </div>
+
+    <!-- مشغل الفيديو الحقيقي -->
+    <video id="video" controls autoplay preload="auto"></video>
+
+</div>
+
+<script>
+    // الرابط المباشر لملف البث (m3u8) المستخرج
+    var streamUrl = "https://d1x13vymv2ive7.cloudfront.net/mhd1.m3u8?token=c845b6895026e623f955ee07b1b269c4&ip=169.224.96.192";
+
+    var video = document.getElementById('video');
+
+    if (Hls.isSupported()) {
+        var hls = new Hls();
+        hls.loadSource(streamUrl);
+        hls.attachMedia(video);
+        hls.on(Hls.Events.MANIFEST_PARSED, function() {
+            video.play();
+        });
+    }
+    else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+        video.src = streamUrl;
+        video.addEventListener('loadedmetadata', function() {
+            video.play();
+        });
+    }
+</script>
+
+</body>
+</html>
