@@ -5,8 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="referrer" content="no-referrer">
     <title>Actin TV</title>
-    <!-- Video.js CSS -->
-    <link href="https://vjs.zencdn.net/8.10.0/video-js.css" rel="stylesheet" />
     <style>
         * {
             box-sizing: border-box;
@@ -26,10 +24,14 @@
             position: relative;
             width: 100%;
             height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
-        .video-js {
-            width: 100% !important;
-            height: 100% !important;
+        video {
+            width: 100%;
+            height: 100%;
+            background: #000;
         }
         /* تأثير التغبيش */
         .blur-overlay {
@@ -38,7 +40,7 @@
             left: 15px;
             width: 130px;
             height: 45px;
-            background: rgba(0, 0, 0, 0.3);
+            background: rgba(0, 0, 0, 0.4);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
             border-radius: 6px;
@@ -51,40 +53,16 @@
 <body>
 
     <div class="video-container">
-        <!-- التغبيش بالجهة اليسرى -->
+        <!-- التغبيش بالجهة اليسرى فوق -->
         <div class="blur-overlay"></div>
 
-        <!-- مشغل الفيديو -->
-        <video id="actin-player" class="video-js vjs-default-skin vjs-big-play-button-centered" controls preload="auto">
-            <p class="vjs-no-js">
-                يرجى تفعيل جافا سكريبت لتشغيل البث.
-            </p>
+        <!-- مشغل الفيديو الأساسي بدون مكاتب خارجية -->
+        <video id="actin-player" controls autoplay playsinline loop muted>
+            <source src="https://streemkrdtv.site/api/hls-proxy?url=https%3A%2F%2Fprod-fastly-us-west-2.video.pscp.tv%2FTranscoding%2Fv1%2Fhls%2Fs0zbhub2tN0b0hPG6Kncn4YRd_p8LOEzPXJp9-MdIY9aTyTU7osYYNGsqd7xt4UVlVrBjIjVouz9s9pC_kUEZQ%2Ftranscode%2Fus-west-2%2Fperiscope-replay-direct-prod-us-west-2-public%2FeyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsInZlcnNpb24iOiIyIn0.eyJFbmNvZGVyU2V0dGluZyI6ImVuY29kZXJfc2V0dGluZ183MjBwMzBfMTAiLCJIZWlnaHQiOjcyMCwiV2lkdGgiOjEyODB9.ldktM4fCFRfkP4ZEBfZPKtlAUNAcTPkoz994YJAzWpE%2Fdynamic_delta.m3u8%3Ftype%3Dlive" type="application/x-mpegURL">
+            <source src="https://streemkrdtv.site/api/hls-proxy?url=https%3A%2F%2Fprod-fastly-us-west-2.video.pscp.tv%2FTranscoding%2Fv1%2Fhls%2Fs0zbhub2tN0b0hPG6Kncn4YRd_p8LOEzPXJp9-MdIY9aTyTU7osYYNGsqd7xt4UVlVrBjIjVouz9s9pC_kUEZQ%2Ftranscode%2Fus-west-2%2Fperiscope-replay-direct-prod-us-west-2-public%2FeyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsInZlcnNpb24iOiIyIn0.eyJFbmNvZGVyU2V0dGluZyI6ImVuY29kZXJfc2V0dGluZ183MjBwMzBfMTAiLCJIZWlnaHQiOjcyMCwiV2lkdGgiOjEyODB9.ldktM4fCFRfkP4ZEBfZPKtlAUNAcTPkoz994YJAzWpE%2Fdynamic_delta.m3u8%3Ftype%3Dlive" type="application/vnd.apple.mpegurl">
+            متصفحك لا يدعم تشغيل هذا البث.
         </video>
     </div>
 
-    <!-- Video.js JS -->
-    <script src="https://vjs.zencdn.net/8.10.0/video.js"></script>
-    <script>
-        // رابط البث مالتك المباشر والصحيح بدون أي تلاعب بالرموز
-        var streamUrl = "https://streemkrdtv.site/api/hls-proxy?url=https%3A%2F%2Fprod-fastly-us-west-2.video.pscp.tv%2FTranscoding%2Fv1%2Fhls%2Fs0zbhub2tN0b0hPG6Kncn4YRd_p8LOEzPXJp9-MdIY9aTyTU7osYYNGsqd7xt4UVlVrBjIjVouz9s9pC_kUEZQ%2Ftranscode%2Fus-west-2%2Fperiscope-replay-direct-prod-us-west-2-public%2FeyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsInZlcnNpb24iOiIyIn0.eyJFbmNvZGVyU2V0dGluZyI6ImVuY29kZXJfc2V0dGluZ183MjBwMzBfMTAiLCJIZWlnaHQiOjcyMCwiS2JwcyI6Mjc1MCwiV2lkdGgiOjEyODB9.ldktM4fCFRfkP4ZEBfZPKtlAUNAcTPkoz994YJAzWpE%2Fdynamic_delta.m3u8%3Ftype%3Dlive";
-
-        var player = videojs('actin-player', {
-            fluid: true,
-            controlBar: {
-                pictureInPictureToggle: false
-            }
-        });
-
-        player.src({
-            src: streamUrl,
-            type: 'application/x-mpegURL'
-        });
-
-        player.ready(function() {
-            player.play().catch(function(error) {
-                console.log("Play failed, waiting for user interaction.");
-            });
-        });
-    </script>
 </body>
 </html>
