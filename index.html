@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="referrer" content="no-referrer">
-    <title>Actin TV - بث مباشر</title>
+    <title>Actin TV</title>
     <!-- Video.js CSS -->
     <link href="https://vjs.zencdn.net/8.10.0/video-js.css" rel="stylesheet" />
     <style>
@@ -17,7 +17,6 @@
             width: 100%;
             height: 100%;
             background-color: #0c0f12;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             overflow: hidden;
             display: flex;
             justify-content: center;
@@ -27,31 +26,12 @@
             position: relative;
             width: 100%;
             height: 100%;
-            max-width: 100%;
-            max-height: 100%;
         }
         .video-js {
             width: 100% !important;
             height: 100% !important;
         }
-        /* شعار القناة (Logo) */
-        .watermark {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            z-index: 10;
-            pointer-events: none;
-            opacity: 0.85;
-            transition: opacity 0.3s ease;
-        }
-        .watermark:hover {
-            opacity: 1;
-        }
-        .watermark img {
-            height: 55px;
-            filter: drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.5));
-        }
-        /* تأثير التغبيش (Blur Overlay) */
+        /* تأثير التغبيش */
         .blur-overlay {
             position: absolute;
             top: 15px;
@@ -66,39 +46,18 @@
             pointer-events: none;
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
-        /* تخصيص ألوان مشغل الفيديو */
-        .vjs-theme-city .vjs-play-progress,
-        .vjs-icon-play,
-        .video-js .vjs-big-play-button {
-            background-color: #ff3e3e !important;
-        }
-        .video-js .vjs-big-play-button {
-            border-radius: 50% !important;
-            width: 70px !important;
-            height: 70px !important;
-            line-height: 70px !important;
-            margin-top: -35px !important;
-            margin-left: -35px !important;
-            border: none !important;
-            box-shadow: 0 4px 15px rgba(255, 62, 62, 0.4);
-        }
     </style>
 </head>
 <body>
 
     <div class="video-container">
-        <!-- التغبيش الاحترافي بالجهة اليسرى فوق -->
+        <!-- التغبيش بالجهة اليسرى -->
         <div class="blur-overlay"></div>
 
-        <!-- شعار موقعك (لوغو Actin) بالجهة اليمنى فوق -->
-        <div class="watermark">
-            <img src="https://i.ibb.co/L8N4F9N/actin-logo.png" alt="Actin Logo">
-        </div>
-
         <!-- مشغل الفيديو -->
-        <video id="actin-player" class="video-js vjs-default-skin vjs-big-play-button-centered" controls preload="auto" poster="https://i.ibb.co/0yH0H0F/poster-bg.jpg">
+        <video id="actin-player" class="video-js vjs-default-skin vjs-big-play-button-centered" controls preload="auto">
             <p class="vjs-no-js">
-                لتشغيل هذا الفيديو، يرجى تفعيل جافا سكريبت أو استخدام متصفح يدعم HTML5.
+                يرجى تفعيل جافا سكريبت لتشغيل البث.
             </p>
         </video>
     </div>
@@ -106,46 +65,24 @@
     <!-- Video.js JS -->
     <script src="https://vjs.zencdn.net/8.10.0/video.js"></script>
     <script>
-        // رابط البث المباشر مع البروكسي لتجاوز حظر الـ Referrer والـ CORS
+        // رابط البث مالتك المباشر والصحيح بدون أي تلاعب بالرموز
         var streamUrl = "https://streemkrdtv.site/api/hls-proxy?url=https%3A%2F%2Fprod-fastly-us-west-2.video.pscp.tv%2FTranscoding%2Fv1%2Fhls%2Fs0zbhub2tN0b0hPG6Kncn4YRd_p8LOEzPXJp9-MdIY9aTyTU7osYYNGsqd7xt4UVlVrBjIjVouz9s9pC_kUEZQ%2Ftranscode%2Fus-west-2%2Fperiscope-replay-direct-prod-us-west-2-public%2FeyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsInZlcnNpb24iOiIyIn0.eyJFbmNvZGVyU2V0dGluZyI6ImVuY29kZXJfc2V0dGluZ183MjBwMzBfMTAiLCJIZWlnaHQiOjcyMCwiS2JwcyI6Mjc1MCwiV2lkdGgiOjEyODB9.ldktM4fCFRfkP4ZEBfZPKtlAUNAcTPkoz994YJAzWpE%2Fdynamic_delta.m3u8%3Ftype%3Dlive";
 
-        // تهيئة المشغل
         var player = videojs('actin-player', {
             fluid: true,
-            playbackRates: [0.5, 1, 1.5, 2],
             controlBar: {
-                children: [
-                    'playToggle',
-                    'volumePanel',
-                    'currentTimeDisplay',
-                    'timeDivider',
-                    'durationDisplay',
-                    'progressControl',
-                    'liveDisplay',
-                    'remainingTimeDisplay',
-                    'customControlSpacer',
-                    'playbackRateMenuButton',
-                    'chaptersButton',
-                    'descriptionsButton',
-                    'subtitlesButton',
-                    'captionsButton',
-                    'subsCapsButton',
-                    'audioTrackButton',
-                    'fullscreenToggle'
-                ]
+                pictureInPictureToggle: false
             }
         });
 
-        // تشغيل البث
         player.src({
             src: streamUrl,
             type: 'application/x-mpegURL'
         });
 
-        // تشغيل تلقائي عند جاهزية البث
         player.ready(function() {
             player.play().catch(function(error) {
-                console.log("التشغيل التلقائي يحتاج تفاعل من المستخدم أولاً.");
+                console.log("Play failed, waiting for user interaction.");
             });
         });
     </script>
