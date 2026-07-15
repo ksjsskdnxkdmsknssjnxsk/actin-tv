@@ -1,68 +1,103 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="referrer" content="no-referrer">
-    <title>Actin TV</title>
+    <title>Actin TV - المشغل الحقيقي</title>
+    
+    <!-- مكتبة HLS لتشغيل ملفات البث المباشر المقطعة -->
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+
     <style>
-        * {
-            box-sizing: border-box;
+        body {
+            background-color: #121212;
+            color: white;
+            font-family: sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
             margin: 0;
-            padding: 0;
         }
-        body, html {
-            width: 100%;
-            height: 100%;
-            background-color: #0c0f12;
-            overflow: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .video-container {
+
+        .player-wrapper {
             position: relative;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            width: 95%;
+            max-width: 800px;
+            aspect-ratio: 16 / 9;
+            background: #000;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.7);
         }
+
         video {
             width: 100%;
             height: 100%;
-            background: #000;
+            object-fit: contain;
         }
-        /* تأثير التغبيش */
-        .blur-overlay {
+
+        /* طبقة التغويش واللوغو */
+        .logo-overlay {
             position: absolute;
-            top: 15px;
-            left: 15px;
-            width: 130px;
-            height: 45px;
-            background: rgba(0, 0, 0, 0.4);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            top: 20px;         
+            left: 20px;        
+            width: 110px;       
+            height: 45px;      
+            background-color: rgba(255, 255, 255, 0.1); 
+            backdrop-filter: blur(12px); 
+            -webkit-backdrop-filter: blur(12px); 
             border-radius: 6px;
-            z-index: 9;
-            pointer-events: none;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;                
+            pointer-events: none;       
+        }
+
+        .logo-overlay img {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
         }
     </style>
 </head>
 <body>
 
-    <div class="video-container">
-        <!-- التغبيش بالجهة اليسرى فوق -->
-        <div class="blur-overlay"></div>
-
-        <!-- مشغل الفيديو الأساسي بدون مكاتب خارجية -->
-        <video id="actin-player" controls autoplay playsinline loop muted>
-            <source src="https://streemkrdtv.site/api/hls-proxy?url=https%3A%2F%2Fprod-fastly-us-west-2.video.pscp.tv%2FTranscoding%2Fv1%2Fhls%2Fs0zbhub2tN0b0hPG6Kncn4YRd_p8LOEzPXJp9-MdIY9aTyTU7osYYNGsqd7xt4UVlVrBjIjVouz9s9pC_kUEZQ%2Ftranscode%2Fus-west-2%2Fperiscope-replay-direct-prod-us-west-2-public%2FeyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsInZlcnNpb24iOiIyIn0.eyJFbmNvZGVyU2V0dGluZyI6ImVuY29kZXJfc2V0dGluZ183MjBwMzBfMTAiLCJIZWlnaHQiOjcyMCwiV2lkdGgiOjEyODB9.ldktM4fCFRfkP4ZEBfZPKtlAUNAcTPkoz994YJAzWpE%2Fdynamic_delta.m3u8%3Ftype%3Dlive" type="application/x-mpegURL">
-            <source src="https://streemkrdtv.site/api/hls-proxy?url=https%3A%2F%2Fprod-fastly-us-west-2.video.pscp.tv%2FTranscoding%2Fv1%2Fhls%2Fs0zbhub2tN0b0hPG6Kncn4YRd_p8LOEzPXJp9-MdIY9aTyTU7osYYNGsqd7xt4UVlVrBjIjVouz9s9pC_kUEZQ%2Ftranscode%2Fus-west-2%2Fperiscope-replay-direct-prod-us-west-2-public%2FeyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCIsInZlcnNpb24iOiIyIn0.eyJFbmNvZGVyU2V0dGluZyI6ImVuY29kZXJfc2V0dGluZ183MjBwMzBfMTAiLCJIZWlnaHQiOjcyMCwiV2lkdGgiOjEyODB9.ldktM4fCFRfkP4ZEBfZPKtlAUNAcTPkoz994YJAzWpE%2Fdynamic_delta.m3u8%3Ftype%3Dlive" type="application/vnd.apple.mpegurl">
-            متصفحك لا يدعم تشغيل هذا البث.
-        </video>
+<div class="player-wrapper">
+    
+    <!-- طبقة التغبيش والشعار -->
+    <div class="logo-overlay">
+        <img src="https://via.placeholder.com/100x40/000000/ffffff?text=Actin+TV" alt="Logo">
     </div>
+
+    <!-- مشغل الفيديو الحقيقي -->
+    <video id="video" controls autoplay preload="auto"></video>
+
+</div>
+
+<script>
+    // الرابط المباشر لملف البث (m3u8) المستخرج
+    var streamUrl = "http://185.191.126.127:8080/live//b0:99:d7:15:88:50/3090914536649669/460870.m3u8";
+
+    var video = document.getElementById('video');
+
+    if (Hls.isSupported()) {
+        var hls = new Hls();
+        hls.loadSource(streamUrl);
+        hls.attachMedia(video);
+        hls.on(Hls.Events.MANIFEST_PARSED, function() {
+            video.play();
+        });
+    }
+    else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+        video.src = streamUrl;
+        video.addEventListener('loadedmetadata', function() {
+            video.play();
+        });
+    }
+</script>
 
 </body>
 </html>
