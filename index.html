@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="referrer" content="no-referrer">
     <title>Actin TV</title>
+    <!-- مكتبة مشغل Video.js -->
+    <link href="https://vjs.zencdn.net/8.10.0/video-js.css" rel="stylesheet" />
     <style>
         * {
             box-sizing: border-box;
@@ -28,12 +30,11 @@
             aspect-ratio: 16 / 9;
             background: #000;
         }
-        video {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
+        .video-js {
+            width: 100% !important;
+            height: 100% !important;
         }
-        /* تأثير التغبيش الاحترافي الشفاف */
+        /* الغواش الشفاف بدون حواف سوداء ومطابق للوغو */
         .blur-overlay {
             position: absolute;
             top: 15px;
@@ -46,7 +47,7 @@
             z-index: 9;
             pointer-events: none;
         }
-        /* اللوغو مالتك فوق الغواش بالتمام */
+        /* اللوغو ممتد فوق الغواش */
         .watermark {
             position: absolute;
             top: 15px;
@@ -73,42 +74,46 @@
         <!-- الغواش الشفاف المتناسق -->
         <div class="blur-overlay"></div>
 
-        <!-- اللوغو مالتك ممتد بالكامل فوق الغواش -->
+        <!-- اللوغو مالتك فوق الغواش بالتمام -->
         <div class="watermark">
             <img src="https://i.ibb.co/xtCkf7nW/image.png" alt="Actin Logo">
         </div>
 
-        <!-- مشغل الفيديو -->
-        <video id="video" controls autoplay playsinline></video>
+        <!-- مشغل الفيديو المعد لدعم ملفات الـ ts -->
+        <video id="actin-player" class="video-js vjs-default-skin vjs-big-play-button-centered" controls autoplay playsinline preload="auto">
+            <p class="vjs-no-js">تفعيل جافا سكريبت مطلوب لتشغيل البث.</p>
+        </video>
     </div>
 
-    <!-- مكتبة hls.js -->
-    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <!-- المكاتب الأساسية: مشغل الفيديو ومحرك تحويل صيغة الـ ts بالوقت الفعلي -->
+    <script src="https://vjs.zencdn.net/8.10.0/video.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mux.js/6.0.1/mux.min.js"></script>
     <script>
-        var video = document.getElementById('video');
-        
-        // دمجنا رابط البث الجديد مالتك داخل البروكسي الآمن لتخطي حجب الـ HTTP والـ CORS
+        // رابط البث الـ ts مالتك ممرر عبر البروكسي الآمن لتفادي الحظر والـ CORS
         var streamUrl = "https://streemkrdtv.site/api/hls-proxy?url=http%3A%2F%2F45.155.90.183%3A7355%2Flive%2FMMTVO89S7DY7CNV7SD%2FP7HIDSPCN580WXH90%2F181661.ts%3Ftoken%3DSRRQUkALGw8bUAYBA1wGAVQCAw8GUgVTCVcBVAAGDAADBVxXV1pfBAkQSEcREERUVFw9XlIUCwEJV1UHBhoWRkFTSmxaBxsPGwNSXVpVDhMZExZeW1MTCgBRWwUFBAcAAQIUEUMKXRcDEFZcUVAPExkTB09CU0NeUAo8VVJAXVBXFAJdRg9VGRtdCjoGAVtQW1VADRQGExwTDxBBFQxaRl5aFBFRCk1HWEYBR1hGBAUAAEAbFFVeRV8SEUgVDBZydxQUEVYbTVBXQQ0KDEYME0FCQBsUX0JvQwMQRUVTVV5XRBoJEVMbGRtfBR09B1lfW1QBQ19ZX0MTXEEAAgYWHxBbV11aF1ZHZkINAUBeFAUEAlQVSw%3D%3D";
 
-        if (Hls.isSupported()) {
-            var hls = new Hls({
-                maxMaxBufferLength: 10,
-                enableWorker: true
+        // تهيئة المشغل
+        var player = videojs('actin-player', {
+            fluid: true,
+            techOrder: ["html5"],
+            html5: {
+                hls: {
+                    overrideNative: true
+                }
+            }
+        });
+
+        // تشغيل الرابط وتحديد نوعه كبث فيديو مباشر متوافق
+        player.src({
+            src: streamUrl,
+            type: 'video/mp2t' // هذا السطر البرمجي يخبر المشغل بأن يتعامل معه كملف بث ts مباشرة
+        });
+
+        player.ready(function() {
+            player.play().catch(function(error) {
+                console.log("التشغيل التلقائي يحتاج ضغطة زر من المستخدم.");
             });
-            hls.loadSource(streamUrl);
-            hls.attachMedia(video);
-            hls.on(Hls.Events.MANIFEST_PARSED, function() {
-                video.play().catch(function(e) {
-                    console.log("التشغيل التلقائي يحتاج كبسة زر أولاً");
-                });
-            });
-        } 
-        else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-            video.src = streamUrl;
-            video.addEventListener('loadedmetadata', function() {
-                video.play();
-            });
-        }
+        });
     </script>
 </body>
 </html>
