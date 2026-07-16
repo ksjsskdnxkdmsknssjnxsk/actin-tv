@@ -20,6 +20,7 @@
             justify-content: center;
             align-items: center;
         }
+        /* الحاوية الرئيسية */
         .video-container {
             position: relative;
             width: 100%;
@@ -43,7 +44,7 @@
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
             border-radius: 6px;
-            z-index: 9;
+            z-index: 9999; /* رفع طبقة الغواش فوق كل شيء */
             pointer-events: none;
         }
         /* اللوغو مالتك فوق الغواش بالتمام */
@@ -53,7 +54,7 @@
             right: 15px;
             width: 140px;
             height: 55px;
-            z-index: 10;
+            z-index: 10000; /* رفع طبقة اللوغو فوق الغواش */
             pointer-events: none;
             display: flex;
             justify-content: center;
@@ -65,11 +66,23 @@
             object-fit: contain;
             filter: drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.5));
         }
+
+        /* تنسيقات خاصة عند تفعيل تكبير الشاشة الفعلي للحاوية */
+        .video-container:fullscreen {
+            width: 100vw;
+            height: 100vh;
+            aspect-ratio: auto;
+        }
+        .video-container:-webkit-full-screen {
+            width: 100vw;
+            height: 100vh;
+            aspect-ratio: auto;
+        }
     </style>
 </head>
 <body>
 
-    <div class="video-container">
+    <div class="video-container" id="videoContainer">
         <!-- الغواش الشفاف المتناسق مالتنا -->
         <div class="blur-overlay"></div>
 
@@ -86,8 +99,9 @@
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
     <script>
         var video = document.getElementById('video');
+        var container = document.getElementById('videoContainer');
         
-        // الرابط الجديد مالتك مدمج بالكامل هنا
+        // الرابط مالتك مدمج بالكامل بالأسفل بالملي
         var streamUrl = "https://s25-es17.s1q2105.com/hls2/dd7a90ae5dda935edd460ca8ede223b4/master.m3u8?token=d76f5902ce944e20393f49b406ddecaa-1784264872-169.224.96.192-bc66f3f577107d74611b9416cf6b05e125ce4c5b3914287595c3fd55062c257f";
 
         if (Hls.isSupported()) {
@@ -99,7 +113,7 @@
             hls.attachMedia(video);
             hls.on(Hls.Events.MANIFEST_PARSED, function() {
                 video.play().catch(function(e) {
-                    console.log("التشغيل التلقائي يحتاج كبسة زر أولاً بسبب سياسة المتصفح.");
+                    console.log("التشغيل التلقائي يحتاج تفاعل المستخدم أولاً.");
                 });
             });
         } 
@@ -108,6 +122,24 @@
             video.addEventListener('loadedmetadata', function() {
                 video.play();
             });
+        }
+
+        // كود تكبير الحاوية كاملة للحفاظ على اللوغو فوق الفيديو
+        video.addEventListener('webkitbeginfullscreen', function(e) {
+            e.preventDefault();
+            launchFullscreen(container);
+        });
+
+        function launchFullscreen(element) {
+            if(element.requestFullscreen) {
+                element.requestFullscreen();
+            } else if(element.mozRequestFullScreen) {
+                element.mozRequestFullScreen();
+            } else if(element.webkitRequestFullscreen) {
+                element.webkitRequestFullscreen();
+            } else if(element.msRequestFullscreen) {
+                element.msRequestFullscreen();
+            }
         }
     </script>
 </body>
