@@ -1,103 +1,107 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Actin TV - المشغل الحقيقي</title>
-    
-    <!-- مكتبة HLS لتشغيل ملفات البث المباشر المقطعة -->
-    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-
+    <meta name="referrer" content="no-referrer">
+    <title>Actin TV</title>
     <style>
-        body {
-            background-color: #121212;
-            color: white;
-            font-family: sans-serif;
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body, html {
+            width: 100%;
+            height: 100%;
+            background-color: #0c0f12;
+            overflow: hidden;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            margin: 0;
         }
-
-        .player-wrapper {
+        .video-container {
             position: relative;
-            width: 95%;
-            max-width: 800px;
-            aspect-ratio: 16 / 9;
-            background: #000;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.7);
+            width: 100%;
+            height: 100%;
         }
-
         video {
             width: 100%;
             height: 100%;
-            object-fit: contain;
+            background: #000;
         }
-
-        /* طبقة التغويش واللوغو */
-        .logo-overlay {
+        /* تأثير التغبيش الاحترافي - بالجهة اليمنى فوق ومكبر */
+        .blur-overlay {
             position: absolute;
-            top: 20px;         
-            left: 20px;        
-            width: 110px;       
-            height: 45px;      
-            background-color: rgba(255, 255, 255, 0.1); 
-            backdrop-filter: blur(12px); 
-            -webkit-backdrop-filter: blur(12px); 
-            border-radius: 6px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 10;                
-            pointer-events: none;       
+            top: 15px;
+            right: 15px;
+            width: 160px;
+            height: 60px;
+            background: rgba(0, 0, 0, 0.45);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-radius: 8px;
+            z-index: 9;
+            pointer-events: none;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
-
-        .logo-overlay img {
-            max-width: 90%;
-            max-height: 90%;
+        /* اللوغو مالتك فوق التغبيش */
+        .watermark {
+            position: absolute;
+            top: 18px;
+            right: 25px;
+            z-index: 10;
+            pointer-events: none;
+        }
+        .watermark img {
+            height: 54px;
+            max-width: 140px;
             object-fit: contain;
+            filter: drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.6));
         }
     </style>
 </head>
 <body>
 
-<div class="player-wrapper">
-    
-    <!-- طبقة التغبيش والشعار -->
-    <div class="logo-overlay">
-        <img src="https://via.placeholder.com/100x40/000000/ffffff?text=Actin+TV" alt="Logo">
+    <div class="video-container">
+        <!-- التغبيش بالجهة اليمنى فوق ممتد ومكبر -->
+        <div class="blur-overlay"></div>
+
+        <!-- اللوغو مالتك فوق التغبيش مباشرة -->
+        <div class="watermark">
+            <img src="https://i.ibb.co/xtCkf7nW/image.png" alt="Actin Logo">
+        </div>
+
+        <!-- مشغل الفيديو -->
+        <video id="video" controls autoplay playsinline></video>
     </div>
 
-    <!-- مشغل الفيديو الحقيقي -->
-    <video id="video" controls autoplay preload="auto"></video>
+    <!-- مكتبة hls.js لتشغيل بثوث m3u8 و ts بأعلى كفاءة -->
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <script>
+        var video = document.getElementById('video');
+        
+        // رابط البث الجديد الخاص بك مع التوكن الكامل
+        var streamUrl = "http://45.155.90.183:7355/live/MMTVO89S7DY7CNV7SD/P7HIDSPCN580WXH90/181661.ts?token=SRRQUkALGw8bUAYBA1wGAVQCAw8GUgVTCVcBVAAGDAADBVxXV1pfBAkQSEcREERUVFw9XlIUCwEJV1UHBhoWRkFTSmxaBxsPGwNSXVpVDhMZExZeW1MTCgBRWwUFBAcAAQIUEUMKXRcDEFZcUVAPExkTB09CU0NeUAo8VVJAXVBXFAJdRg9VGRtdCjoGAVtQW1VADRQGExwTDxBBFQxaRl5aFBFRCk1HWEYBR1hGBAUAAEAbFFVeRV8SEUgVDBZydxQUEVYbTVBXQQ0KDEYME0FCQBsUX0JvQwMQRUVTVV5XRBoJEVMbGRtfBR09B1lfW1QBQ19ZX0MTXEEAAgYWHxBbV11aF1ZHZkINAUBeFAUEAlQVSw==";
 
-</div>
-
-<script>
-    // الرابط المباشر لملف البث (m3u8) المستخرج
-    var streamUrl = "http://185.191.126.127:8080/live//b0:99:d7:15:88:50/3090914536649669/460870.m3u8";
-
-    var video = document.getElementById('video');
-
-    if (Hls.isSupported()) {
-        var hls = new Hls();
-        hls.loadSource(streamUrl);
-        hls.attachMedia(video);
-        hls.on(Hls.Events.MANIFEST_PARSED, function() {
-            video.play();
-        });
-    }
-    else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-        video.src = streamUrl;
-        video.addEventListener('loadedmetadata', function() {
-            video.play();
-        });
-    }
-</script>
-
+        if (Hls.isSupported()) {
+            var hls = new Hls({
+                xhrSetup: function (xhr, url) {
+                    xhr.withCredentials = false;
+                }
+            });
+            hls.loadSource(streamUrl);
+            hls.attachMedia(video);
+            hls.on(Hls.Events.MANIFEST_PARSED, function() {
+                video.play();
+            });
+        } 
+        else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+            video.src = streamUrl;
+            video.addEventListener('loadedmetadata', function() {
+                video.play();
+            });
+        }
+    </script>
 </body>
 </html>
