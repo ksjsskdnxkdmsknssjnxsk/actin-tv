@@ -25,7 +25,7 @@
             width: 100%;
             max-width: 100%;
             height: auto;
-            aspect-ratio: 16 / 9; /* تثبيت أبعاد الشاشة الطبيعية بالعرض */
+            aspect-ratio: 16 / 9; /* لتثبيت أبعاد الشاشة بالعرض الطبيعي */
             background: #000;
         }
         video {
@@ -33,13 +33,13 @@
             height: 100%;
             object-fit: contain;
         }
-        /* تأثير التغبيش الاحترافي الشفاف مطابق للوغو بالجهة اليمنى فوق */
+        /* تأثير التغبيش الاحترافي الشفاف بالجهة اليمنى فوق */
         .blur-overlay {
             position: absolute;
             top: 15px;
             right: 15px;
-            width: 140px; /* نفس عرض اللوغو مالتك */
-            height: 55px; /* نفس ارتفاع اللوغو مالتك */
+            width: 140px;
+            height: 55px;
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
             border-radius: 6px;
@@ -79,31 +79,34 @@
         </div>
 
         <!-- مشغل الفيديو -->
-        <video id="videoElement" controls autoplay playsinline></video>
+        <video id="video" controls autoplay playsinline></video>
     </div>
 
-    <!-- مكاتب التشغيل المخصصة لروابط الـ ts المباشرة -->
-    <script src="https://cdn.jsdelivr.net/npm/mpegts.js@1.7.3/dist/mpegts.min.js"></script>
+    <!-- مكتبة hls.js الرسمية والوحيدة لتشغيل الـ m3u8 -->
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
     <script>
-        if (mpegts.getFeatureList().mseLivePlayback) {
-            var videoElement = document.getElementById('videoElement');
-            
-            // الرابط الأصلي مالتك
-            var rawUrl = "https://s25-es17.s1q2105.com/hls2/dd7a90ae5dda935edd460ca8ede223b4/master.m3u8?token=d76f5902ce944e20393f49b406ddecaa-1784264872-169.224.96.192-bc66f3f577107d74611b9416cf6b05e125ce4c5b3914287595c3fd55062c257f";
+        var video = document.getElementById('video');
+        
+        // الرابط الجديد مالتك مدمج بالكامل هنا
+        var streamUrl = "https://s25-es17.s1q2105.com/hls2/dd7a90ae5dda935edd460ca8ede223b4/master.m3u8?token=d76f5902ce944e20393f49b406ddecaa-1784264872-169.224.96.192-bc66f3f577107d74611b9416cf6b05e125ce4c5b3914287595c3fd55062c257f";
 
-            // هنا غلّفنا الرابط (التغليف البرمجي) لتحويله إلى HTTPS آمن وتخطي حظر المتصفح
-            var proxyUrl = "https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&refresh=1&url=" + encodeURIComponent(rawUrl);
-
-            var player = mpegts.createPlayer({
-                type: 'mse',
-                isLive: true,
-                url: proxyUrl // تشغيل البث عبر الرابط المغلّف
+        if (Hls.isSupported()) {
+            var hls = new Hls({
+                maxMaxBufferLength: 10,
+                enableWorker: true
             });
-            
-            player.attachMediaElement(videoElement);
-            player.load();
-            player.play().catch(function(error) {
-                console.log("التشغيل التلقائي يحتاج ضغطة زر من المستخدم أولاً بسبب سياسة المتصفح.");
+            hls.loadSource(streamUrl);
+            hls.attachMedia(video);
+            hls.on(Hls.Events.MANIFEST_PARSED, function() {
+                video.play().catch(function(e) {
+                    console.log("التشغيل التلقائي يحتاج كبسة زر أولاً بسبب سياسة المتصفح.");
+                });
+            });
+        } 
+        else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+            video.src = streamUrl;
+            video.addEventListener('loadedmetadata', function() {
+                video.play();
             });
         }
     </script>
