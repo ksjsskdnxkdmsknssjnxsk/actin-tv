@@ -25,7 +25,7 @@
             width: 100%;
             max-width: 100%;
             height: auto;
-            aspect-ratio: 16 / 9;
+            aspect-ratio: 16 / 9; /* تثبيت أبعاد الشاشة الطبيعية بالعرض */
             background: #000;
         }
         video {
@@ -33,20 +33,20 @@
             height: 100%;
             object-fit: contain;
         }
-        /* تأثير التغبيش الاحترافي الشفاف */
+        /* تأثير التغبيش الاحترافي الشفاف مطابق للوغو بالجهة اليمنى فوق */
         .blur-overlay {
             position: absolute;
             top: 15px;
             right: 15px;
-            width: 140px;
-            height: 55px;
+            width: 140px; /* نفس عرض اللوغو مالتك */
+            height: 55px; /* نفس ارتفاع اللوغو مالتك */
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
             border-radius: 6px;
             z-index: 9;
             pointer-events: none;
         }
-        /* اللوغو فوق الغواش بالتمام */
+        /* اللوغو مالتك فوق الغواش بالتمام */
         .watermark {
             position: absolute;
             top: 15px;
@@ -70,37 +70,42 @@
 <body>
 
     <div class="video-container">
+        <!-- الغواش الشفاف المتناسق مالتنا -->
         <div class="blur-overlay"></div>
+
+        <!-- اللوغو مالتك فوق الغواش بالتمام -->
         <div class="watermark">
             <img src="https://i.ibb.co/xtCkf7nW/image.png" alt="Actin Logo">
         </div>
+
+        <!-- مشغل الفيديو -->
         <video id="videoElement" controls autoplay playsinline></video>
     </div>
 
-    <!-- استخدام المكتبة الرسمية لتشغيل ملفات الـ TS مباشرة -->
+    <!-- مكاتب التشغيل المخصصة لروابط الـ ts المباشرة -->
     <script src="https://cdn.jsdelivr.net/npm/mpegts.js@1.7.3/dist/mpegts.min.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            if (mpegts.getFeatureList().mseLivePlayback) {
-                var videoElement = document.getElementById('videoElement');
-                
-                // الرابط المباشر الخاص بك
-                var streamUrl = "http://45.155.90.183:7355/live/MMTVO89S7DY7CNV7SD/P7HIDSPCN580WXH90/181661.ts?token=SRRQUkALGw8bUAYBA1wGAVQCAw8GUgVTCVcBVAAGDAADBVxXV1pfBAkQSEcREERUVFw9XlIUCwEJV1UHBhoWRkFTSmxaBxsPGwNSXVpVDhMZExZeW1MTCgBRWwUFBAcAAQIUEUMKXRcDEFZcUVAPExkTB09CU0NeUAo8VVJAXVBXFAJdRg9VGRtdCjoGAVtQW1VADRQGExwTDxBBFQxaRl5aFBFRCk1HWEYBR1hGBAUAAEAbFFVeRV8SEUgVDBZydxQUEVYbTVBXQQ0KDEYME0FCQBsUX0JvQwMQRUVTVV5XRBoJEVMbGRtfBR09B1lfW1QBQ19ZX0MTXEEAAgYWHxBbV11aF1ZHZkINAUBeFAUEAlQVSw==";
+        if (mpegts.getFeatureList().mseLivePlayback) {
+            var videoElement = document.getElementById('videoElement');
+            
+            // الرابط الأصلي مالتك
+            var rawUrl = "http://45.155.90.183:7355/live/MMTVO89S7DY7CNV7SD/P7HIDSPCN580WXH90/181661.ts?token=SRRQUkALGw8bUAYBA1wGAVQCAw8GUgVTCVcBVAAGDAADBVxXV1pfBAkQSEcREERUVFw9XlIUCwEJV1UHBhoWRkFTSmxaBxsPGwNSXVpVDhMZExZeW1MTCgBRWwUFBAcAAQIUEUMKXRcDEFZcUVAPExkTB09CU0NeUAo8VVJAXVBXFAJdRg9VGRtdCjoGAVtQW1VADRQGExwTDxBBFQxaRl5aFBFRCk1HWEYBR1hGBAUAAEAbFFVeRV8SEUgVDBZydxQUEVYbTVBXQQ0KDEYME0FCQBsUX0JvQwMQRUVTVV5XRBoJEVMbGRtfBR09B1lfW1QBQ19ZX0MTXEEAAgYWHxBbV11aF1ZHZkINAUBeFAUEAlQVSw==";
 
-                var player = mpegts.createPlayer({
-                    type: 'mse', // لتشغيل بث الـ TS الحي
-                    isLive: true,
-                    url: streamUrl
-                });
-                
-                player.attachMediaElement(videoElement);
-                player.load();
-                
-                player.play().catch(function(error) {
-                    console.log("التشغيل التلقائي واجه قيوداً؛ يحتاج ضغطة زر من المستخدم.");
-                });
-            }
-        });
+            // هنا غلّفنا الرابط (التغليف البرمجي) لتحويله إلى HTTPS آمن وتخطي حظر المتصفح
+            var proxyUrl = "https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&refresh=1&url=" + encodeURIComponent(rawUrl);
+
+            var player = mpegts.createPlayer({
+                type: 'mse',
+                isLive: true,
+                url: proxyUrl // تشغيل البث عبر الرابط المغلّف
+            });
+            
+            player.attachMediaElement(videoElement);
+            player.load();
+            player.play().catch(function(error) {
+                console.log("التشغيل التلقائي يحتاج ضغطة زر من المستخدم أولاً بسبب سياسة المتصفح.");
+            });
+        }
     </script>
 </body>
 </html>
