@@ -23,80 +23,87 @@
         .video-container {
             position: relative;
             width: 100%;
-            height: 100%;
+            max-width: 100%;
+            height: auto;
+            aspect-ratio: 16 / 9; /* لتثبيت الأبعاد بالعرض الطبيعي ومنع الطول المزعج */
+            background: #000;
         }
         video {
             width: 100%;
             height: 100%;
-            background: #000;
+            object-fit: contain;
         }
-        /* تأثير التغبيش الاحترافي - بالجهة اليمنى فوق ومكبر */
+        /* تأثير التغبيش بدون خلفية سوداء ولا حواف مزعجة ومطابق للوغو */
         .blur-overlay {
             position: absolute;
             top: 15px;
             right: 15px;
-            width: 160px;
-            height: 60px;
-            background: rgba(0, 0, 0, 0.45);
+            width: 140px; /* نفس عرض اللوغو */
+            height: 55px; /* نفس ارتفاع اللوغو */
             backdrop-filter: blur(15px);
             -webkit-backdrop-filter: blur(15px);
-            border-radius: 8px;
+            border-radius: 6px;
             z-index: 9;
             pointer-events: none;
-            border: 1px solid rgba(255, 255, 255, 0.1);
         }
-        /* اللوغو مالتك فوق التغبيش */
+        /* اللوغو ممتد بالكامل فوق الغواش */
         .watermark {
             position: absolute;
-            top: 18px;
-            right: 25px;
+            top: 15px;
+            right: 15px;
+            width: 140px;
+            height: 55px;
             z-index: 10;
             pointer-events: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
         .watermark img {
-            height: 54px;
-            max-width: 140px;
+            width: 100%;
+            height: 100%;
             object-fit: contain;
-            filter: drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.6));
+            filter: drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.5));
         }
     </style>
 </head>
 <body>
 
     <div class="video-container">
-        <!-- التغبيش بالجهة اليمنى فوق ممتد ومكبر -->
+        <!-- التغبيش الاحترافي الشفاف بدون حواف -->
         <div class="blur-overlay"></div>
 
-        <!-- اللوغو مالتك فوق التغبيش مباشرة -->
+        <!-- اللوغو الخاص بك على كبر الغواش تماماً -->
         <div class="watermark">
             <img src="https://i.ibb.co/xtCkf7nW/image.png" alt="Actin Logo">
         </div>
 
-        <!-- مشغل الفيديو -->
+        <!-- مشغل الفيديو متناسق الأبعاد ومعدل للتشغيل -->
         <video id="video" controls autoplay playsinline></video>
     </div>
 
-    <!-- مكتبة hls.js لتشغيل بثوث m3u8 و ts بأعلى كفاءة -->
+    <!-- مكتبة hls.js لتشغيل البث والتوافق مع الرابط الجديد -->
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
     <script>
         var video = document.getElementById('video');
         
-        // رابط البث الجديد الخاص بك مع التوكن الكامل
+        // رابط البث الـ ts الجديد مالتك
         var streamUrl = "http://45.155.90.183:7355/live/MMTVO89S7DY7CNV7SD/P7HIDSPCN580WXH90/181661.ts?token=SRRQUkALGw8bUAYBA1wGAVQCAw8GUgVTCVcBVAAGDAADBVxXV1pfBAkQSEcREERUVFw9XlIUCwEJV1UHBhoWRkFTSmxaBxsPGwNSXVpVDhMZExZeW1MTCgBRWwUFBAcAAQIUEUMKXRcDEFZcUVAPExkTB09CU0NeUAo8VVJAXVBXFAJdRg9VGRtdCjoGAVtQW1VADRQGExwTDxBBFQxaRl5aFBFRCk1HWEYBR1hGBAUAAEAbFFVeRV8SEUgVDBZydxQUEVYbTVBXQQ0KDEYME0FCQBsUX0JvQwMQRUVTVV5XRBoJEVMbGRtfBR09B1lfW1QBQ19ZX0MTXEEAAgYWHxBbV11aF1ZHZkINAUBeFAUEAlQVSw==";
 
         if (Hls.isSupported()) {
             var hls = new Hls({
-                xhrSetup: function (xhr, url) {
-                    xhr.withCredentials = false;
-                }
+                maxMaxBufferLength: 10, // لتقليل وقت التحميل والبدء السريع
+                enableWorker: true
             });
             hls.loadSource(streamUrl);
             hls.attachMedia(video);
             hls.on(Hls.Events.MANIFEST_PARSED, function() {
-                video.play();
+                video.play().catch(function(e) {
+                    console.log("التشغيل التلقائي يحتاج تفاعل");
+                });
             });
         } 
-        else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+        else if (video.canPlayType('application/vnd.apple.mpegurl') || video.canPlayType('video/mp2t')) {
             video.src = streamUrl;
             video.addEventListener('loadedmetadata', function() {
                 video.play();
