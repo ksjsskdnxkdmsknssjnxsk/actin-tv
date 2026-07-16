@@ -33,7 +33,7 @@
             height: 100%;
             object-fit: contain;
         }
-        /* تأثير التغبيش الاحترافي الشفاف مطابق للوغو */
+        /* تأثير التغبيش الاحترافي الشفاف */
         .blur-overlay {
             position: absolute;
             top: 15px;
@@ -46,7 +46,7 @@
             z-index: 9;
             pointer-events: none;
         }
-        /* اللوغو مالتك فوق الغواش بالتمام */
+        /* اللوغو فوق الغواش بالتمام */
         .watermark {
             position: absolute;
             top: 15px;
@@ -70,48 +70,37 @@
 <body>
 
     <div class="video-container">
-        <!-- الغواش الشفاف المتناسق -->
         <div class="blur-overlay"></div>
-
-        <!-- اللوغو مالتك فوق الغواش بالتمام -->
         <div class="watermark">
             <img src="https://i.ibb.co/xtCkf7nW/image.png" alt="Actin Logo">
         </div>
-
-        <!-- مشغل الفيديو -->
-        <video id="video" controls autoplay playsinline></video>
+        <video id="videoElement" controls autoplay playsinline></video>
     </div>
 
-    <!-- مكتبة hls.js -->
-    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <!-- استخدام المكتبة الرسمية لتشغيل ملفات الـ TS مباشرة -->
+    <script src="https://cdn.jsdelivr.net/npm/mpegts.js@1.7.3/dist/mpegts.min.js"></script>
     <script>
-        var video = document.getElementById('video');
-        
-        // الرابط الأصلي الخاص بك
-        var rawUrl = "http://45.155.90.183:7355/live/MMTVO89S7DY7CNV7SD/P7HIDSPCN580WXH90/181661.ts?token=SRRQUkALGw8bUAYBA1wGAVQCAw8GUgVTCVcBVAAGDAADBVxXV1pfBAkQSEcREERUVFw9XlIUCwEJV1UHBhoWRkFTSmxaBxsPGwNSXVpVDhMZExZeW1MTCgBRWwUFBAcAAQIUEUMKXRcDEFZcUVAPExkTB09CU0NeUAo8VVJAXVBXFAJdRg9VGRtdCjoGAVtQW1VADRQGExwTDxBBFQxaRl5aFBFRCk1HWEYBR1hGBAUAAEAbFFVeRV8SEUgVDBZydxQUEVYbTVBXQQ0KDEYME0FCQBsUX0JvQwMQRUVTVV5XRBoJEVMbGRtfBR09B1lfW1QBQ19ZX0MTXEEAAgYWHxBbV11aF1ZHZkINAUBeFAUEAlQVSw==";
-        
-        // تمرير الرابط عبر البروكسي الآمن وتحويله لـ HTTPS لتجنب حظر المتصفح وتخطي الـ CORS
-        var streamUrl = "https://api.allorigins.win/raw?url=" + encodeURIComponent(rawUrl);
+        document.addEventListener('DOMContentLoaded', function () {
+            if (mpegts.getFeatureList().mseLivePlayback) {
+                var videoElement = document.getElementById('videoElement');
+                
+                // الرابط المباشر الخاص بك
+                var streamUrl = "http://45.155.90.183:7355/live/MMTVO89S7DY7CNV7SD/P7HIDSPCN580WXH90/181661.ts?token=SRRQUkALGw8bUAYBA1wGAVQCAw8GUgVTCVcBVAAGDAADBVxXV1pfBAkQSEcREERUVFw9XlIUCwEJV1UHBhoWRkFTSmxaBxsPGwNSXVpVDhMZExZeW1MTCgBRWwUFBAcAAQIUEUMKXRcDEFZcUVAPExkTB09CU0NeUAo8VVJAXVBXFAJdRg9VGRtdCjoGAVtQW1VADRQGExwTDxBBFQxaRl5aFBFRCk1HWEYBR1hGBAUAAEAbFFVeRV8SEUgVDBZydxQUEVYbTVBXQQ0KDEYME0FCQBsUX0JvQwMQRUVTVV5XRBoJEVMbGRtfBR09B1lfW1QBQ19ZX0MTXEEAAgYWHxBbV11aF1ZHZkINAUBeFAUEAlQVSw==";
 
-        if (Hls.isSupported()) {
-            var hls = new Hls({
-                maxMaxBufferLength: 10,
-                enableWorker: true
-            });
-            hls.loadSource(streamUrl);
-            hls.attachMedia(video);
-            hls.on(Hls.Events.MANIFEST_PARSED, function() {
-                video.play().catch(function(e) {
-                    console.log("التشغيل التلقائي بحاجة لتفاعل المستخدم أولاً.");
+                var player = mpegts.createPlayer({
+                    type: 'mse', // لتشغيل بث الـ TS الحي
+                    isLive: true,
+                    url: streamUrl
                 });
-            });
-        } 
-        else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-            video.src = streamUrl;
-            video.addEventListener('loadedmetadata', function() {
-                video.play();
-            });
-        }
+                
+                player.attachMediaElement(videoElement);
+                player.load();
+                
+                player.play().catch(function(error) {
+                    console.log("التشغيل التلقائي واجه قيوداً؛ يحتاج ضغطة زر من المستخدم.");
+                });
+            }
+        });
     </script>
 </body>
 </html>
