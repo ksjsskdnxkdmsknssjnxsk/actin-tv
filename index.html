@@ -1,146 +1,85 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="referrer" content="no-referrer">
-    <title>Actin TV</title>
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-        body, html {
-            width: 100%;
-            height: 100%;
-            background-color: #0c0f12;
-            overflow: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        /* الحاوية الرئيسية */
-        .video-container {
-            position: relative;
-            width: 100%;
-            max-width: 100%;
-            height: auto;
-            aspect-ratio: 16 / 9; /* لتثبيت أبعاد الشاشة بالعرض الطبيعي */
-            background: #000;
-        }
-        video {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-        }
-        /* تأثير التغبيش الاحترافي الشفاف بالجهة اليمنى فوق */
-        .blur-overlay {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            width: 140px;
-            height: 55px;
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border-radius: 6px;
-            z-index: 9999; /* رفع طبقة الغواش فوق كل شيء */
-            pointer-events: none;
-        }
-        /* اللوغو مالتك فوق الغواش بالتمام */
-        .watermark {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            width: 140px;
-            height: 55px;
-            z-index: 10000; /* رفع طبقة اللوغو فوق الغواش */
-            pointer-events: none;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .watermark img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            filter: drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.5));
-        }
-
-        /* تنسيقات خاصة عند تفعيل تكبير الشاشة الفعلي للحاوية */
-        .video-container:fullscreen {
-            width: 100vw;
-            height: 100vh;
-            aspect-ratio: auto;
-        }
-        .video-container:-webkit-full-screen {
-            width: 100vw;
-            height: 100vh;
-            aspect-ratio: auto;
-        }
-    </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#100d18">
+<title>ليل البنفسج 2 | المشاهدة</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;600;700;800&display=swap');
+:root{--bg:#0d0a12;--panel:#17121e;--muted:#aaa0b5;--accent:#b78aff;--accent2:#e1c9ff;--line:#30263b}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse at 80% 0%,#38204d 0%,transparent 36%),var(--bg);color:#f7f2fb;font-family:'Alexandria',system-ui,sans-serif}
+a{color:inherit;text-decoration:none}.wrap{width:min(1160px,92%);margin:auto}
+header{height:76px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #ffffff12;position:relative;z-index:2}
+.brand{font-weight:800;letter-spacing:.2px;font-size:21px}.brand span{color:var(--accent)}
+.nav{display:flex;gap:28px;color:#c8bfd0;font-size:13px}.nav a:hover{color:white}
+.hero{padding:42px 0 54px;display:grid;grid-template-columns: minmax(0,1.2fr) minmax(250px,.8fr);gap:46px;align-items:center;min-height:510px}
+.kicker{color:var(--accent2);font-size:12px;letter-spacing:1px;margin-bottom:18px}
+h1{font-size:clamp(38px,6vw,68px);line-height:1.2;margin:0 0 14px;font-weight:800}
+h1 small{display:block;font-size:.42em;color:#d5c4e7;font-weight:500;margin-top:8px}
+.desc{color:#c0b6c9;line-height:2;font-size:14px;max-width:590px}
+.meta{display:flex;gap:10px;flex-wrap:wrap;margin:22px 0 26px}.pill{border:1px solid #ffffff22;border-radius:99px;padding:7px 13px;color:#ddd2e8;font-size:11px;background:#ffffff08}
+.primary{display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,#c79aff,#8750bd);color:#160d20;border:0;border-radius:12px;padding:14px 22px;font:700 13px inherit;cursor:pointer;box-shadow:0 12px 35px #9a5bd344}
+.primary:hover{transform:translateY(-2px)}.poster-wrap{position:relative;max-width:360px;justify-self:center}
+.poster-wrap:before{content:"";position:absolute;inset:12% -10%;background:#9c5bc9;filter:blur(85px);opacity:.25;z-index:-1}
+.poster{width:100%;display:block;border-radius:18px;border:1px solid #ffffff25;box-shadow:0 30px 80px #0009}
+.section{padding:28px 0 70px}.section-head{display:flex;align-items:end;justify-content:space-between;margin-bottom:22px}
+h2{font-size:23px;margin:0}.sub{font-size:12px;color:var(--muted);margin-top:8px}
+.episode{display:grid;grid-template-columns:190px 1fr auto;gap:20px;align-items:center;background:linear-gradient(110deg,#21182b,#15111b);border:1px solid var(--line);padding:14px;border-radius:17px;max-width:780px}
+.thumb{height:112px;border-radius:11px;background:linear-gradient(135deg,#39234a,#110d17);display:grid;place-items:center;color:#d7b8ff;font-size:34px}
+.ep-title{font-size:16px;font-weight:700}.ep-note{color:var(--muted);font-size:12px;margin-top:8px}
+.status{display:inline-block;color:#c6f2d4;background:#1d51364d;border:1px solid #4a9e6d66;padding:5px 9px;border-radius:99px;font-size:10px;margin-top:10px}
+.play-small{background:#ffffff10;border:1px solid #ffffff25;color:white;border-radius:10px;padding:11px 16px;font:600 12px inherit;cursor:pointer}.play-small:hover{background:#ffffff20}
+.player-section{padding:26px 0 80px;display:none}.player-section.show{display:block}.player-shell{background:#08070b;border:1px solid #473652;border-radius:18px;overflow:hidden;box-shadow:0 25px 80px #0009}
+.player-top{display:flex;justify-content:space-between;align-items:center;padding:15px 18px;background:#17111e}.player-top strong{font-size:14px}.back{background:transparent;color:#d9c9e7;border:1px solid #ffffff25;border-radius:9px;padding:8px 12px;cursor:pointer;font:inherit;font-size:11px}
+.player-frame{position:relative;width:100%;aspect-ratio:16/9;background:#000}.player-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.player-caption{color:#a99db4;font-size:11px;padding:12px 17px}
+footer{border-top:1px solid #ffffff12;color:#847a8c;text-align:center;padding:24px 0;font-size:10px}
+@media(max-width:760px){header{height:64px}.nav{gap:13px;font-size:11px}.hero{grid-template-columns:1fr;gap:30px;padding:36px 0 42px;text-align:center}.desc{margin:auto}.meta{justify-content:center}.poster-wrap{width:min(68%,290px);grid-row:1}.hero-copy{grid-row:2}.episode{grid-template-columns:105px 1fr;gap:13px}.thumb{height:90px}.episode .play-small{grid-column:1/-1;width:100%}.section-head{align-items:start;flex-direction:column;gap:8px}}
+</style>
 </head>
 <body>
-
-    <div class="video-container" id="videoContainer">
-        <!-- الغواش الشفاف المتناسق مالتنا -->
-        <div class="blur-overlay"></div>
-
-        <!-- اللوغو مالتك فوق الغواش بالتمام -->
-        <div class="watermark">
-            <img src="https://i.ibb.co/xtCkf7nW/image.png" alt="Actin Logo">
-        </div>
-
-        <!-- مشغل الفيديو -->
-        <video id="video" controls autoplay playsinline></video>
-    </div>
-
-    <!-- مكتبة hls.js الرسمية والوحيدة لتشغيل الـ m3u8 -->
-    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-    <script>
-        var video = document.getElementById('video');
-        var container = document.getElementById('videoContainer');
-        
-        // الرابط مالتك مدمج بالكامل بالأسفل بالملي
-        var streamUrl = "https://vsd288.okcdn.ru/hls/18026345269818.m3u8/sig/eHO75xDemZs/expires/1784570532052/srcIp/169.224.96.192/urls/178.237.23.63/clientType/0/srcAg/CHROME/mid/15792313081402/18026345269818_ultrahd/index.m3u8";
-
-        if (Hls.isSupported()) {
-            var hls = new Hls({
-                maxMaxBufferLength: 10,
-                enableWorker: true
-            });
-            hls.loadSource(streamUrl);
-            hls.attachMedia(video);
-            hls.on(Hls.Events.MANIFEST_PARSED, function() {
-                video.play().catch(function(e) {
-                    console.log("التشغيل التلقائي يحتاج تفاعل المستخدم أولاً.");
-                });
-            });
-        } 
-        else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-            video.src = streamUrl;
-            video.addEventListener('loadedmetadata', function() {
-                video.play();
-            });
-        }
-
-        // كود تكبير الحاوية كاملة للحفاظ على اللوغو فوق الفيديو
-        video.addEventListener('webkitbeginfullscreen', function(e) {
-            e.preventDefault();
-            launchFullscreen(container);
-        });
-
-        function launchFullscreen(element) {
-            if(element.requestFullscreen) {
-                element.requestFullscreen();
-            } else if(element.mozRequestFullScreen) {
-                element.mozRequestFullScreen();
-            } else if(element.webkitRequestFullscreen) {
-                element.webkitRequestFullscreen();
-            } else if(element.msRequestFullscreen) {
-                element.msRequestFullscreen();
-            }
-        }
-    </script>
+<header class="wrap">
+  <a class="brand" href="#">ليل <span>البنفسج</span></a>
+  <nav class="nav"><a href="#home">الرئيسية</a><a href="#episodes">الحلقات</a><a href="#about">عن المسلسل</a></nav>
+</header>
+<main>
+<section class="hero wrap" id="home">
+  <div class="hero-copy">
+    <div class="kicker">دراما عراقية · الموسم الثاني</div>
+    <h1>ليل البنفسج <small>الموسم الثاني</small></h1>
+    <p class="desc">حكاية جديدة، وأسرار تعود إلى الواجهة… تابع أحداث الموسم الثاني من مسلسل ليل البنفسج.</p>
+    <div class="meta"><span class="pill">2026</span><span class="pill">العراق</span><span class="pill">دراما وتشويق</span><span class="pill">الحلقة المتاحة: 1</span></div>
+    <a class="primary" href="#episodes" onclick="document.getElementById('episodes').scrollIntoView({behavior:'smooth'});return false">▶　شاهد الحلقة المتوفرة</a>
+  </div>
+  <div class="poster-wrap">
+    <img class="poster" src="https://i.ibb.co/xK8sxfMs/IMG-20261106-150016.jpg" alt="بوستر مسلسل ليل البنفسج">
+  </div>
+</section>
+<section class="section wrap" id="episodes">
+  <div class="section-head"><div><h2>الحلقات</h2><div class="sub">المتوفر حالياً للمشاهدة</div></div><span class="pill">الموسم 2 · حلقة واحدة</span></div>
+  <article class="episode">
+    <div class="thumb">▶</div>
+    <div><div class="ep-title">الحلقة 1</div><div class="ep-note">ليل البنفسج 2 · الحلقة الأولى</div><span class="status">متاحة للمشاهدة</span></div>
+    <button class="play-small" onclick="openPlayer()">شاهد الآن　▶</button>
+  </article>
+</section>
+<section class="player-section wrap" id="watch">
+  <div class="section-head"><div><h2>مشاهدة الحلقة 1</h2><div class="sub">ليل البنفسج · الموسم الثاني</div></div><button class="back" onclick="closePlayer()">رجوع للحلقات ←</button></div>
+  <div class="player-shell">
+    <div class="player-top"><strong>ليل البنفسج 2 — الحلقة 1</strong><span class="pill">مشغل الفيديو</span></div>
+    <div class="player-frame"><iframe id="muxPlayer" src="https://player.mux.com/T02Vj800UjxThF02DG2ueei6ym02VeoClA9mpx6TKw1re02E" allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;" allowfullscreen></iframe></div>
+    <div class="player-caption">إذا ما اشتغل الفيديو، جرّب تحديث الصفحة أو فتحها بمتصفح حديث.</div>
+  </div>
+</section>
+<section class="wrap section" id="about" style="padding-top:0">
+  <h2>عن المسلسل</h2><p class="desc">ليل البنفسج — عمل درامي عراقي من إخراج علي فاضل وتأليف مصطفى الركابي.</p>
+</section>
+</main>
+<footer>© 2026 ليل البنفسج 2 · تجربة مشاهدة تجريبية</footer>
+<script>
+function openPlayer(){const s=document.getElementById('watch');s.classList.add('show');s.scrollIntoView({behavior:'smooth',block:'start'});}
+function closePlayer(){document.getElementById('watch').classList.remove('show');document.getElementById('episodes').scrollIntoView({behavior:'smooth'});document.getElementById('muxPlayer').src=document.getElementById('muxPlayer').src;}
+</script>
 </body>
 </html>
