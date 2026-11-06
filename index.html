@@ -2,84 +2,194 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#100d18">
-<title>ليل البنفسج 2 | المشاهدة</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b0812">
+<title>VIOLET ڤايولت | ليل البنفسج 2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;600;800&display=swap">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;600;700;800&display=swap');
-:root{--bg:#0d0a12;--panel:#17121e;--muted:#aaa0b5;--accent:#b78aff;--accent2:#e1c9ff;--line:#30263b}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse at 80% 0%,#38204d 0%,transparent 36%),var(--bg);color:#f7f2fb;font-family:'Alexandria',system-ui,sans-serif}
-a{color:inherit;text-decoration:none}.wrap{width:min(1160px,92%);margin:auto}
-header{height:76px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #ffffff12;position:relative;z-index:2}
-.brand{font-weight:800;letter-spacing:.2px;font-size:21px}.brand span{color:var(--accent)}
-.nav{display:flex;gap:28px;color:#c8bfd0;font-size:13px}.nav a:hover{color:white}
-.hero{padding:42px 0 54px;display:grid;grid-template-columns: minmax(0,1.2fr) minmax(250px,.8fr);gap:46px;align-items:center;min-height:510px}
-.kicker{color:var(--accent2);font-size:12px;letter-spacing:1px;margin-bottom:18px}
-h1{font-size:clamp(38px,6vw,68px);line-height:1.2;margin:0 0 14px;font-weight:800}
-h1 small{display:block;font-size:.42em;color:#d5c4e7;font-weight:500;margin-top:8px}
-.desc{color:#c0b6c9;line-height:2;font-size:14px;max-width:590px}
-.meta{display:flex;gap:10px;flex-wrap:wrap;margin:22px 0 26px}.pill{border:1px solid #ffffff22;border-radius:99px;padding:7px 13px;color:#ddd2e8;font-size:11px;background:#ffffff08}
-.primary{display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,#c79aff,#8750bd);color:#160d20;border:0;border-radius:12px;padding:14px 22px;font:700 13px inherit;cursor:pointer;box-shadow:0 12px 35px #9a5bd344}
-.primary:hover{transform:translateY(-2px)}.poster-wrap{position:relative;max-width:360px;justify-self:center}
-.poster-wrap:before{content:"";position:absolute;inset:12% -10%;background:#9c5bc9;filter:blur(85px);opacity:.25;z-index:-1}
-.poster{width:100%;display:block;border-radius:18px;border:1px solid #ffffff25;box-shadow:0 30px 80px #0009}
-.section{padding:28px 0 70px}.section-head{display:flex;align-items:end;justify-content:space-between;margin-bottom:22px}
-h2{font-size:23px;margin:0}.sub{font-size:12px;color:var(--muted);margin-top:8px}
-.episode{display:grid;grid-template-columns:190px 1fr auto;gap:20px;align-items:center;background:linear-gradient(110deg,#21182b,#15111b);border:1px solid var(--line);padding:14px;border-radius:17px;max-width:780px}
-.thumb{height:112px;border-radius:11px;background:linear-gradient(135deg,#39234a,#110d17);display:grid;place-items:center;color:#d7b8ff;font-size:34px}
-.ep-title{font-size:16px;font-weight:700}.ep-note{color:var(--muted);font-size:12px;margin-top:8px}
-.status{display:inline-block;color:#c6f2d4;background:#1d51364d;border:1px solid #4a9e6d66;padding:5px 9px;border-radius:99px;font-size:10px;margin-top:10px}
-.play-small{background:#ffffff10;border:1px solid #ffffff25;color:white;border-radius:10px;padding:11px 16px;font:600 12px inherit;cursor:pointer}.play-small:hover{background:#ffffff20}
-.player-section{padding:26px 0 80px;display:none}.player-section.show{display:block}.player-shell{background:#08070b;border:1px solid #473652;border-radius:18px;overflow:hidden;box-shadow:0 25px 80px #0009}
-.player-top{display:flex;justify-content:space-between;align-items:center;padding:15px 18px;background:#17111e}.player-top strong{font-size:14px}.back{background:transparent;color:#d9c9e7;border:1px solid #ffffff25;border-radius:9px;padding:8px 12px;cursor:pointer;font:inherit;font-size:11px}
-.player-frame{position:relative;width:100%;aspect-ratio:16/9;background:#000}.player-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
-.player-caption{color:#a99db4;font-size:11px;padding:12px 17px}
-footer{border-top:1px solid #ffffff12;color:#847a8c;text-align:center;padding:24px 0;font-size:10px}
-@media(max-width:760px){header{height:64px}.nav{gap:13px;font-size:11px}.hero{grid-template-columns:1fr;gap:30px;padding:36px 0 42px;text-align:center}.desc{margin:auto}.meta{justify-content:center}.poster-wrap{width:min(68%,290px);grid-row:1}.hero-copy{grid-row:2}.episode{grid-template-columns:105px 1fr;gap:13px}.thumb{height:90px}.episode .play-small{grid-column:1/-1;width:100%}.section-head{align-items:start;flex-direction:column;gap:8px}}
+:root{color-scheme:dark;--bg:#0b0812;--bg2:#15101f;--ink:#f5f1fa;--mute:#a79db4;--vio:#9b5de5;--vio2:#6d35b8;--sil:#d9d6e3;--line:#2b2238;--glow:#c39bff}
+*{box-sizing:border-box}
+html{font-size:16px;scroll-behavior:smooth}
+@media(min-width:1900px){html{font-size:calc(100vw/120)}}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:'Alexandria',system-ui,sans-serif}
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{min-height:100vh;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+button,input{font:inherit;color:inherit}
+.f{outline:none;cursor:pointer}
+.f:focus-visible,.f.on{outline:.2rem solid var(--glow);outline-offset:.25rem;box-shadow:0 0 0 .35rem #9b5de544,0 0 2.2rem #9b5de5aa;transform:scale(1.04);z-index:3}
+.f{transition:transform .18s,box-shadow .18s}
+.wrap{width:min(78rem,92%);margin:auto}
+/* splash */
+#splash{position:fixed;inset:0;z-index:99;background:radial-gradient(circle at 50% 45%,#2c1646 0,#0b0812 60%);display:grid;place-items:center;text-align:center;transition:opacity .7s}
+#splash.out{opacity:0;pointer-events:none}
+#splash svg{width:7.5rem;height:7.5rem;filter:drop-shadow(0 0 1.6rem #9b5de5);animation:pulse 2.4s ease-out both}
+#splash b{display:block;font-size:3rem;letter-spacing:.9rem;margin:1.2rem 0 .3rem;background:linear-gradient(90deg,#8a55d8,#f0ecff,#8a55d8);-webkit-background-clip:text;background-clip:text;color:transparent;animation:fade 1.6s .4s both}
+#splash span{color:var(--mute);font-size:.9rem;letter-spacing:.12rem;animation:fade 1.6s .9s both;direction:ltr;display:block}
+@keyframes pulse{0%{opacity:0;transform:scale(.6);filter:drop-shadow(0 0 0 #9b5de5)}60%{opacity:1;filter:drop-shadow(0 0 3rem #c39bff)}100%{opacity:1;transform:scale(1)}}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+/* header */
+header{position:absolute;inset:0 0 auto;z-index:5;padding:max(env(safe-area-inset-top,0px),.8rem) 0 .8rem}
+header .wrap{display:flex;align-items:center;gap:1.4rem}
+.logo{display:flex;align-items:center;gap:.7rem;padding:.3rem .5rem;border-radius:.8rem}
+.logo svg{width:2.4rem;height:2.4rem}
+.logo b{font-size:1.35rem;letter-spacing:.3rem;display:block;line-height:1;direction:ltr}
+.logo small{color:var(--mute);font-size:.7rem;display:block;margin-top:.2rem}
+.nav{display:flex;gap:.4rem;margin-inline-start:1rem}
+.nav a{padding:.55rem 1rem;border-radius:99px;color:var(--sil);font-size:.9rem}
+.search{margin-inline-start:auto;position:relative}
+.search input{background:#ffffff12;border:1px solid #ffffff2a;border-radius:99px;padding:.65rem 1.1rem;width:min(16rem,40vw);font-size:.9rem;outline:none}
+.search input::placeholder{color:var(--mute)}
+/* hero */
+.hero{position:relative;min-height:min(46rem,92vh);display:flex;align-items:flex-end;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:var(--bg) center/cover}
+.hero-bg img{position:absolute;inset-inline-start:0;top:0;width:min(52%,40rem);height:100%;object-fit:cover;object-position:top;opacity:.55;mask-image:linear-gradient(to left,#000 40%,transparent);-webkit-mask-image:linear-gradient(to left,#000 40%,transparent)}
+.hero:after{content:"";position:absolute;inset:0;background:linear-gradient(to top,var(--bg) 4%,transparent 55%),radial-gradient(ellipse at 85% 10%,#43226a88,transparent 55%)}
+.hero .wrap{position:relative;z-index:2;display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,.7fr);gap:3rem;align-items:center;padding:8rem 0 3.5rem}
+.tag{display:inline-block;color:var(--glow);font-size:.85rem;margin-bottom:.8rem}
+h1{font-size:clamp(2.6rem,6vw,4.8rem);line-height:1.15;margin:0 0 .6rem;font-weight:800}
+.desc{color:#cfc6da;line-height:2;font-size:1rem;max-width:36rem;margin:0}
+.meta{display:flex;gap:.6rem;flex-wrap:wrap;margin:1.3rem 0 1.6rem}
+.pill{border:1px solid #ffffff2e;border-radius:99px;padding:.35rem .9rem;font-size:.8rem;color:var(--sil);background:#ffffff0a}
+.btn{display:inline-flex;align-items:center;gap:.7rem;border:0;border-radius:.9rem;padding:.95rem 1.8rem;font-weight:600;font-size:1.05rem}
+.btn.p{background:linear-gradient(135deg,#c9a1ff,#8248d0);color:#160c24}
+.btn.s{background:#ffffff14;border:1px solid #ffffff30}
+.poster{justify-self:center;width:min(100%,19rem);border-radius:1rem;border:1px solid #ffffff30;box-shadow:0 2rem 5rem #000a,0 0 4rem #9b5de544;aspect-ratio:2/3;object-fit:cover;background:var(--bg2)}
+/* rows */
+.row{padding:1.6rem 0 2rem}
+.row h2{font-size:1.4rem;margin:0 0 1.2rem}
+.cards{display:flex;gap:1.2rem;overflow-x:auto;padding:.8rem .6rem 1.2rem;scrollbar-width:none}
+.cards::-webkit-scrollbar{display:none}
+.card{flex:0 0 min(19rem,72vw);background:var(--bg2);border:1px solid var(--line);border-radius:1rem;overflow:hidden;display:block;text-align:start;padding:0}
+.th{aspect-ratio:16/9;background:linear-gradient(135deg,#3a1f58,#120d1b);display:grid;place-items:center;position:relative;color:#e3d0ff;font-size:2rem}
+.th img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top;opacity:.7}
+.th i{position:relative;font-style:normal;background:#0b0812aa;border:1px solid #ffffff44;width:3.2rem;height:3.2rem;border-radius:50%;display:grid;place-items:center;font-size:1.2rem}
+.ci{padding:.9rem 1rem 1.1rem}.ci b{font-size:1rem;display:block}.ci span{color:var(--mute);font-size:.8rem;display:block;margin-top:.35rem}
+.soon .th{filter:saturate(.6)}
+.empty{color:var(--mute);padding:1rem .6rem}
+.hide{display:none!important}
+/* watch */
+#watch{display:none;min-height:100vh;padding:max(env(safe-area-inset-top,0px),1rem) 0 3rem;background:radial-gradient(ellipse at 50% 0,#2a1544 0,var(--bg) 62%)}
+body.watching #watch{display:block}body.watching #home{display:none}
+.wtop{display:flex;align-items:center;gap:1rem;margin-bottom:1.2rem}
+.wtop .logo{margin-inline-start:auto}
+.shell{background:#000;border:1px solid #4b3660;border-radius:1.1rem;overflow:hidden;box-shadow:0 0 6rem #7a3fc044,0 2rem 5rem #000c}
+.frame{position:relative;aspect-ratio:16/9;background:#000}
+.frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.winfo{display:flex;justify-content:space-between;gap:1.5rem;align-items:flex-start;margin-top:1.4rem;flex-wrap:wrap}
+.winfo h2{margin:0 0 .4rem;font-size:1.6rem}.winfo p{margin:.5rem 0 0;color:#c7bdd2;line-height:2;max-width:42rem}
+.hint{color:var(--mute);font-size:.8rem;margin-top:1rem}
+footer{border-top:1px solid #ffffff12;text-align:center;color:#7d7388;padding:1.6rem 0;font-size:.75rem}
+@media(max-width:760px){
+.nav{display:none}.hero .wrap{grid-template-columns:1fr;text-align:center;padding-top:6rem}.poster{width:min(60%,14rem);grid-row:1}.desc{margin:auto}.meta{justify-content:center}.hero-bg img{width:100%;opacity:.25}.logo small{display:none}}
+@media(prefers-reduced-motion:reduce){#splash svg,#splash b,#splash span{animation:none}.f{transition:none}}
 </style>
 </head>
 <body>
-<header class="wrap">
-  <a class="brand" href="#">ليل <span>البنفسج</span></a>
-  <nav class="nav"><a href="#home">الرئيسية</a><a href="#episodes">الحلقات</a><a href="#about">عن المسلسل</a></nav>
-</header>
-<main>
-<section class="hero wrap" id="home">
-  <div class="hero-copy">
-    <div class="kicker">دراما عراقية · الموسم الثاني</div>
-    <h1>ليل البنفسج <small>الموسم الثاني</small></h1>
-    <p class="desc">حكاية جديدة، وأسرار تعود إلى الواجهة… تابع أحداث الموسم الثاني من مسلسل ليل البنفسج.</p>
-    <div class="meta"><span class="pill">2026</span><span class="pill">العراق</span><span class="pill">دراما وتشويق</span><span class="pill">الحلقة المتاحة: 1</span></div>
-    <a class="primary" href="#episodes" onclick="document.getElementById('episodes').scrollIntoView({behavior:'smooth'});return false">▶　شاهد الحلقة المتوفرة</a>
-  </div>
-  <div class="poster-wrap">
-    <img class="poster" src="https://i.ibb.co/xK8sxfMs/IMG-20261106-150016.jpg" alt="بوستر مسلسل ليل البنفسج">
-  </div>
-</section>
-<section class="section wrap" id="episodes">
-  <div class="section-head"><div><h2>الحلقات</h2><div class="sub">المتوفر حالياً للمشاهدة</div></div><span class="pill">الموسم 2 · حلقة واحدة</span></div>
-  <article class="episode">
-    <div class="thumb">▶</div>
-    <div><div class="ep-title">الحلقة 1</div><div class="ep-note">ليل البنفسج 2 · الحلقة الأولى</div><span class="status">متاحة للمشاهدة</span></div>
-    <button class="play-small" onclick="openPlayer()">شاهد الآن　▶</button>
-  </article>
-</section>
-<section class="player-section wrap" id="watch">
-  <div class="section-head"><div><h2>مشاهدة الحلقة 1</h2><div class="sub">ليل البنفسج · الموسم الثاني</div></div><button class="back" onclick="closePlayer()">رجوع للحلقات ←</button></div>
-  <div class="player-shell">
-    <div class="player-top"><strong>ليل البنفسج 2 — الحلقة 1</strong><span class="pill">مشغل الفيديو</span></div>
-    <div class="player-frame"><iframe id="muxPlayer" src="https://player.mux.com/T02Vj800UjxThF02DG2ueei6ym02VeoClA9mpx6TKw1re02E" allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;" allowfullscreen></iframe></div>
-    <div class="player-caption">إذا ما اشتغل الفيديو، جرّب تحديث الصفحة أو فتحها بمتصفح حديث.</div>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f2eefc"/><stop offset=".5" stop-color="#b98cf5"/><stop offset="1" stop-color="#6d35b8"/></linearGradient>
+<symbol id="lg" viewBox="0 0 64 64"><path d="M8 18 L32 58 L56 18 L47 18 L32 44 L17 18 Z" fill="url(#g)"/><g fill="url(#g)" transform="translate(32 11)"><ellipse rx="3.6" ry="7" transform="rotate(0) translate(0 -3)"/><ellipse rx="3.6" ry="7" transform="rotate(72) translate(0 -3)"/><ellipse rx="3.6" ry="7" transform="rotate(144) translate(0 -3)"/><ellipse rx="3.6" ry="7" transform="rotate(216) translate(0 -3)"/><ellipse rx="3.6" ry="7" transform="rotate(288) translate(0 -3)"/></g><circle cx="32" cy="11" r="2.4" fill="#0b0812"/></symbol>
+</defs></svg>
+
+<div id="splash"><div><svg><use href="#lg"/></svg><b>VIOLET</b><span>Stories Beyond The Screen</span></div></div>
+
+<div id="home">
+<header><div class="wrap">
+  <a class="logo f" href="#" onclick="return false"><svg><use href="#lg"/></svg><div><b>VIOLET</b><small>ڤايولت</small></div></a>
+  <nav class="nav"><a class="f" href="#top">الرئيسية</a><a class="f" href="#episodes">الحلقات</a><a class="f" href="#soon">قريباً</a></nav>
+  <div class="search"><input id="q" class="f" type="search" placeholder="ابحث عن مسلسل أو فيلم" autocomplete="off"></div>
+</div></header>
+
+<section class="hero" id="top">
+  <div class="hero-bg"><img src="https://i.ibb.co/xK8sxfMs/IMG-20261106-150016.jpg" alt="" fetchpriority="high" decoding="async"></div>
+  <div class="wrap">
+    <div>
+      <span class="tag">مسلسل عراقي · الموسم الثاني</span>
+      <h1>ليل البنفسج 2</h1>
+      <p class="desc">حكاية جديدة، وأسرار تعود إلى الواجهة… تابع أحداث الموسم الثاني من مسلسل ليل البنفسج.</p>
+      <div class="meta"><span class="pill">2026</span><span class="pill">دراما وتشويق</span><span class="pill">العراق</span><span class="pill">حلقة متاحة</span></div>
+      <button class="btn p f" id="heroPlay" onclick="openPlayer()">▶ شاهد الحلقة 1</button>
+    </div>
+    <img class="poster" src="https://i.ibb.co/xK8sxfMs/IMG-20261106-150016.jpg" alt="بوستر مسلسل ليل البنفسج 2" fetchpriority="high" decoding="async">
   </div>
 </section>
-<section class="wrap section" id="about" style="padding-top:0">
-  <h2>عن المسلسل</h2><p class="desc">ليل البنفسج — عمل درامي عراقي من إخراج علي فاضل وتأليف مصطفى الركابي.</p>
-</section>
+
+<main class="wrap">
+  <section class="row" id="episodes"><h2>الحلقات المتاحة</h2>
+    <div class="cards">
+      <button class="card f" data-k="ليل البنفسج الحلقة 1 مسلسل" onclick="openPlayer()">
+        <div class="th"><img src="https://i.ibb.co/xK8sxfMs/IMG-20261106-150016.jpg" alt="" loading="lazy" decoding="async"><i>▶</i></div>
+        <div class="ci"><b>الحلقة 1</b><span>ليل البنفسج 2 · متاحة الآن</span></div>
+      </button>
+    </div>
+  </section>
+  <section class="row" id="soon"><h2>أعمال قادمة</h2>
+    <div class="cards">
+      <div class="card soon f" tabindex="0" data-k="قريبا أعمال قادمة"><div class="th">V</div><div class="ci"><b>عمل جديد</b><span>قريباً على VIOLET</span></div></div>
+      <div class="card soon f" tabindex="0" data-k="قريبا أعمال قادمة"><div class="th">V</div><div class="ci"><b>عمل جديد</b><span>قريباً على VIOLET</span></div></div>
+      <div class="card soon f" tabindex="0" data-k="قريبا أعمال قادمة"><div class="th">V</div><div class="ci"><b>عمل جديد</b><span>قريباً على VIOLET</span></div></div>
+    </div>
+  </section>
+  <div id="none" class="empty hide">ماكو نتائج. جرّب اسم ثاني.</div>
 </main>
-<footer>© 2026 ليل البنفسج 2 · تجربة مشاهدة تجريبية</footer>
+<footer>© 2026 VIOLET ڤايولت — Stories Beyond The Screen</footer>
+</div>
+
+<section id="watch">
+  <div class="wrap">
+    <div class="wtop">
+      <button class="btn s f" id="back" onclick="closePlayer()">→ رجوع للحلقات</button>
+      <a class="logo f" href="#" onclick="return false"><svg><use href="#lg"/></svg><div><b>VIOLET</b><small>ڤايولت</small></div></a>
+    </div>
+    <div class="shell"><div class="frame" id="frame"><iframe id="mux" title="ليل البنفسج 2 الحلقة 1" data-src="https://player.mux.com/T02Vj800UjxThF02DG2ueei6ym02VeoClA9mpx6TKw1re02E" allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture;" allowfullscreen></iframe></div></div>
+    <div class="winfo">
+      <div><span class="tag">الحلقة 1 · الموسم الثاني</span><h2>ليل البنفسج 2</h2><p>حكاية جديدة، وأسرار تعود إلى الواجهة… الحلقة الأولى من الموسم الثاني.</p></div>
+      <button class="btn p f" onclick="fs()">⛶ ملء الشاشة</button>
+    </div>
+    <div class="hint">بالريموت: الأسهم للتنقل · OK للاختيار · Back للرجوع</div>
+  </div>
+</section>
+
 <script>
-function openPlayer(){const s=document.getElementById('watch');s.classList.add('show');s.scrollIntoView({behavior:'smooth',block:'start'});}
-function closePlayer(){document.getElementById('watch').classList.remove('show');document.getElementById('episodes').scrollIntoView({behavior:'smooth'});document.getElementById('muxPlayer').src=document.getElementById('muxPlayer').src;}
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+let on=null;
+function openPlayer(){const m=$('#mux');if(!m.src)m.src=m.dataset.src;document.body.classList.add('watching');scrollTo(0,0);setTimeout(()=>focusEl($('#back')),50)}
+function closePlayer(){document.body.classList.remove('watching');const m=$('#mux');m.removeAttribute('src');setTimeout(()=>{focusEl($('#heroPlay'))},50)}
+function fs(){const f=$('#frame');(f.requestFullscreen||f.webkitRequestFullscreen||function(){}).call(f)}
+function focusEl(e){if(!e)return;e.focus({preventScroll:true});e.scrollIntoView({block:'center',inline:'center',behavior:'smooth'})}
+/* search */
+$('#q').addEventListener('input',e=>{const v=e.target.value.trim();let n=0;
+ $$('.card').forEach(c=>{const ok=!v||c.dataset.k.includes(v)||c.textContent.includes(v);c.classList.toggle('hide',!ok);if(ok)n++});
+ $$('.row').forEach(r=>r.classList.toggle('hide',!r.querySelector('.card:not(.hide)')));
+ $('#none').classList.toggle('hide',n>0)});
+/* splash */
+function endSplash(){const s=$('#splash');if(s.classList.contains('out'))return;s.classList.add('out');setTimeout(()=>{s.remove();focusEl($('#heroPlay'))},700)}
+setTimeout(endSplash,2800);
+/* remote / keyboard navigation */
+const dirs={ArrowUp:[0,-1],ArrowDown:[0,1],ArrowLeft:[-1,0],ArrowRight:[1,0]};
+function nav(d){
+ const list=$$('.f').filter(e=>e.offsetParent!==null&&!e.classList.contains('hide'));
+ const cur=list.includes(document.activeElement)?document.activeElement:null;
+ if(!cur){focusEl(list[0]);return}
+ const a=cur.getBoundingClientRect(),ax=a.left+a.width/2,ay=a.top+a.height/2;let best=null,bs=1e9;
+ for(const e of list){if(e===cur)continue;const r=e.getBoundingClientRect(),dx=r.left+r.width/2-ax,dy=r.top+r.height/2-ay;
+  const p=d[0]?dx*d[0]:dy*d[1],o=d[0]?Math.abs(dy):Math.abs(dx);
+  if(p<=2)continue;const s=p+o*2.5;if(s<bs){bs=s;best=e}}
+ if(best)focusEl(best)}
+addEventListener('keydown',e=>{
+ if(!$('#splash').classList.contains('out')&&$('#splash')){endSplash();e.preventDefault();return}
+ const k=e.key,kc=e.keyCode,inp=document.activeElement===$('#q');
+ if(k in dirs){if(inp&&dirs[k][1]===0)return;e.preventDefault();nav(dirs[k]);return}
+ if(k==='Enter'||kc===13||kc===23){const t=document.activeElement;if(t&&t.classList.contains('f')&&!['BUTTON','A','INPUT'].includes(t.tagName)){e.preventDefault();t.click()}return}
+ if(k==='Escape'||k==='GoBack'||k==='BrowserBack'||kc===4||kc===10009||(k==='Backspace'&&!inp)){
+  e.preventDefault();
+  if(document.fullscreenElement){document.exitFullscreen();return}
+  if(document.body.classList.contains('watching'))closePlayer();
+  else if($('#q').value){$('#q').value='';$('#q').dispatchEvent(new Event('input'));focusEl($('#heroPlay'))}}
+});
+addEventListener('mousedown',()=>{if($('#splash'))endSplash()});
 </script>
 </body>
 </html>
